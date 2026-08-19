@@ -1,80 +1,318 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>QA Bank Transfer Demo</title>
-<style>
-body{font-family:Arial,sans-serif;background:#f4f6f8;margin:0;color:#17202a}
-header{background:#17202a;color:white;padding:18px 24px}
-main{max-width:850px;margin:28px auto;padding:0 16px}
-.card{background:white;border-radius:12px;padding:22px;box-shadow:0 2px 10px #0001;margin-bottom:18px}
-label{display:block;font-weight:700;margin:12px 0 6px}
-input,select,button{width:100%;box-sizing:border-box;padding:11px;border:1px solid #ccd2d8;border-radius:7px;font-size:15px}
-button{margin-top:16px;background:#17202a;color:white;border:0;cursor:pointer}
-button.secondary{background:#6c757d}
-.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.balance{font-size:18px;font-weight:700}
-.notice{padding:12px;border-radius:7px;margin-top:14px;display:none}
-.success{background:#e8f7ee;color:#176b38}.error{background:#fdecec;color:#9d2222}.info{background:#eef4ff;color:#214d8f}
-table{width:100%;border-collapse:collapse;margin-top:12px}th,td{border-bottom:1px solid #ddd;padding:9px;text-align:left}
-small{color:#667}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Transfer QA Project | 3MTT Portfolio</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.6;
+            background: #f4f7fb;
+            color: #1f2937;
+        }
+
+        header {
+            background: #0f172a;
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 42px;
+            margin-bottom: 12px;
+        }
+
+        header p {
+            font-size: 19px;
+            color: #cbd5e1;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 40px 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 28px;
+            margin-bottom: 25px;
+            border-radius: 10px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+        }
+
+        h2 {
+            color: #0f172a;
+            margin-bottom: 15px;
+        }
+
+        h3 {
+            margin-bottom: 8px;
+        }
+
+        ul {
+            padding-left: 22px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .metric {
+            background: #eef2ff;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+        }
+
+        .metric strong {
+            display: block;
+            font-size: 30px;
+            color: #1e3a8a;
+        }
+
+        .metric span {
+            font-size: 14px;
+        }
+
+        .links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .links a {
+            display: block;
+            padding: 15px;
+            background: #0f172a;
+            color: white;
+            text-decoration: none;
+            border-radius: 7px;
+            text-align: center;
+        }
+
+        .links a:hover {
+            background: #1e293b;
+        }
+
+        .warning {
+            border-left: 5px solid #dc2626;
+            background: #fef2f2;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            background: #0f172a;
+            color: #cbd5e1;
+        }
+
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 32px;
+            }
+        }
+    </style>
 </head>
+
 <body>
-<header><strong>TestBank — QA Demonstration Environment</strong></header>
-<main>
-<div class="card">
-<h2>Bank Transfer</h2>
-<div class="balance">Available balance: ₦<span id="balance">100,000.00</span></div>
-<div class="row">
-<div><label>Bank</label><select id="bank"><option>Test Bank</option><option>Demo Commercial Bank</option></select></div>
-<div><label>Account Number</label><input id="account" inputmode="numeric" maxlength="10" placeholder="0000000002"></div>
-</div>
-<label>Amount (₦)</label><input id="amount" type="number" min="0" step="0.01" placeholder="10000">
-<label>Narration (optional)</label><input id="narration" maxlength="40" placeholder="QA transfer">
-<label>OTP</label><input id="otp" inputmode="numeric" maxlength="6" placeholder="123456">
-<button id="transfer">Confirm Transfer</button>
-<button id="reset" class="secondary">Reset Demo Data</button>
-<div id="notice" class="notice"></div>
-<small>Demo credentials/data only. This is not a real banking service.</small>
-</div>
-<div class="card">
-<h3>Transaction History</h3>
-<table><thead><tr><th>Reference</th><th>Beneficiary</th><th>Amount</th><th>Status</th></tr></thead>
-<tbody id="history"><tr><td colspan="4">No transactions</td></tr></tbody></table>
-</div>
+
+<header>
+    <h1>Bank Transfer QA Project</h1>
+    <p>3MTT Software Testing Portfolio Project</p>
+</header>
+
+<main class="container">
+
+    <section class="card">
+        <h2>Project Overview</h2>
+
+        <p>
+            This project demonstrates a structured Quality Assurance approach
+            to testing the Bank Transfer feature of a simulated mobile banking
+            application.
+        </p>
+
+        <p style="margin-top: 12px;">
+            The project focuses on functional behaviour, transaction integrity,
+            authentication, validation, error handling, duplicate transaction
+            prevention and API testing.
+        </p>
+    </section>
+
+
+    <section class="card">
+        <h2>Testing Results</h2>
+
+        <div class="metrics">
+
+            <div class="metric">
+                <strong>40</strong>
+                <span>Total Test Cases</span>
+            </div>
+
+            <div class="metric">
+                <strong>31</strong>
+                <span>Passed</span>
+            </div>
+
+            <div class="metric">
+                <strong>7</strong>
+                <span>Failed</span>
+            </div>
+
+            <div class="metric">
+                <strong>2</strong>
+                <span>Blocked</span>
+            </div>
+
+            <div class="metric">
+                <strong>77.5%</strong>
+                <span>Pass Rate</span>
+            </div>
+
+        </div>
+    </section>
+
+
+    <section class="card warning">
+        <h2>Release Recommendation</h2>
+
+        <p>
+            <strong>NOT RECOMMENDED FOR PRODUCTION</strong>
+        </p>
+
+        <p style="margin-top: 10px;">
+            The simulated application achieved a 77.5% pass rate,
+            below the defined 95% exit criterion. Critical and
+            High-severity transaction risks require remediation
+            before release.
+        </p>
+    </section>
+
+
+    <section class="card">
+        <h2>Testing Scope</h2>
+
+        <ul>
+            <li>Beneficiary validation</li>
+            <li>Account number validation</li>
+            <li>Transfer amount validation</li>
+            <li>Transaction fees</li>
+            <li>PIN and OTP authentication</li>
+            <li>Transfer confirmation and cancellation</li>
+            <li>Receipts and transaction history</li>
+            <li>Network and error handling</li>
+            <li>Duplicate transaction prevention</li>
+            <li>API request and response validation</li>
+        </ul>
+    </section>
+
+
+    <section class="card">
+        <h2>Testing Techniques</h2>
+
+        <ul>
+            <li>Functional Testing</li>
+            <li>Smoke Testing</li>
+            <li>Regression Testing</li>
+            <li>Negative Testing</li>
+            <li>Boundary-Value Testing</li>
+            <li>Exploratory Testing</li>
+            <li>Security-Focused Validation</li>
+            <li>Usability Testing</li>
+            <li>API Testing</li>
+        </ul>
+    </section>
+
+
+    <section class="card">
+        <h2>Key Defect Areas</h2>
+
+        <ul>
+            <li>Duplicate transaction processing</li>
+            <li>Unsafe transaction handling during network interruptions</li>
+            <li>Expired OTP acceptance</li>
+            <li>Transaction-limit validation</li>
+            <li>Fee calculation and validation</li>
+            <li>Transaction receipt and history consistency</li>
+        </ul>
+    </section>
+
+
+    <section class="card">
+        <h2>Project Deliverables</h2>
+
+        <div class="links">
+
+            <a href="documentation/Bank_Transfer_Test_Plan.docx">
+                Test Plan
+            </a>
+
+            <a href="documentation/Bank_Transfer_Test_Summary_Report.docx">
+                Test Summary Report
+            </a>
+
+            <a href="test-artifacts/Bank_Transfer_QA_Test_Artifacts.xlsx">
+                Test Artifacts
+            </a>
+
+            <a href="api/Bank_Transfer_Simulated_Postman_Collection.json">
+                API Collection
+            </a>
+
+            <a href="presentation/Bank_Transfer_QA_Project_Presentation.pptx">
+                Project Presentation
+            </a>
+
+            <a href="README.md">
+                Project README
+            </a>
+
+        </div>
+    </section>
+
+
+    <section class="card">
+        <h2>QA Skills Demonstrated</h2>
+
+        <ul>
+            <li>Test Planning</li>
+            <li>Test Case Design</li>
+            <li>Requirements Traceability</li>
+            <li>Functional and Negative Testing</li>
+            <li>Boundary-Value Analysis</li>
+            <li>API Testing</li>
+            <li>Defect Management</li>
+            <li>Risk-Based Testing</li>
+            <li>Test Reporting</li>
+            <li>Release Readiness Assessment</li>
+        </ul>
+    </section>
+
 </main>
-<script>
-let balance=100000, transactions=[], busy=false, lastRequest="";
-const $=id=>document.getElementById(id);
-function money(n){return Number(n).toLocaleString("en-NG",{minimumFractionDigits:2,maximumFractionDigits:2})}
-function notice(msg,type){let n=$("notice");n.textContent=msg;n.className="notice "+type;n.style.display="block"}
-function render(){ $("balance").textContent=money(balance); let h=$("history"); h.innerHTML=transactions.length?transactions.map(t=>`<tr><td>${t.ref}</td><td>${t.name}</td><td>₦${money(t.amount)}</td><td>${t.status}</td></tr>`).join(""):`<tr><td colspan="4">No transactions</td></tr>`}
-function validate(){
- const account=$("account").value.trim(), amount=Number($("amount").value), otp=$("otp").value.trim();
- if(!/^\d{10}$/.test(account)) return "Invalid account number. Enter exactly 10 digits.";
- if(account==="0000000000") return "Beneficiary account could not be found.";
- if(!(amount>0)) return "Transfer amount must be greater than ₦0.";
- if(amount>500000) return "Daily transfer limit exceeded.";
- if(amount>balance) return "Insufficient balance.";
- if(otp!=="123456") return "Invalid or expired OTP.";
- return null;
-}
-$("transfer").onclick=()=>{
- if(busy){notice("Duplicate request blocked: transaction already processing.","info");return}
- let err=validate(); if(err){notice(err,"error");return}
- busy=true; $("transfer").disabled=true; notice("Processing transaction…","info");
- const amount=Number($("amount").value), account=$("account").value.trim();
- setTimeout(()=>{
-   const ref="QA-"+Date.now().toString().slice(-8);
-   balance-=amount; transactions.unshift({ref,name:account==="0000000002"?"Test Beneficiary":"Demo Beneficiary",amount,status:"Successful"});
-   render(); notice(`Transfer successful. Reference: ${ref}`,"success");
-   busy=false; $("transfer").disabled=false;
- },900);
-}
-$("reset").onclick=()=>{balance=100000;transactions=[];busy=false;$("transfer").disabled=false;["account","amount","narration","otp"].forEach(id=>$(id).value="");notice("Demo data reset.","info");render()}
-render();
-</script>
+
+
+<footer>
+    <p>Bank Transfer QA Project | 3MTT Software Testing Portfolio</p>
+</footer>
+
 </body>
 </html>
