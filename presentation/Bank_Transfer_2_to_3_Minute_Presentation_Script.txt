@@ -1,0 +1,25 @@
+BANK TRANSFER QA PROJECT — 2–3 MINUTE PRESENTATION
+
+Good day. My name is Samuel Chijioke, and this is my 3MTT NextGen Quality Assurance project.
+
+The project is a Bank Transfer Test Plan for a simulated mobile banking application.
+
+The objective was to verify that users can make transfers accurately, securely and reliably, including how the application responds when something goes wrong.
+
+I defined the testing scope around beneficiary validation, account numbers, transfer amounts, transaction fees, PIN and OTP authentication, confirmation, receipts, transaction history and error handling.
+
+I created 40 test cases covering positive, negative and edge-case scenarios. Examples include successful transfers, invalid account numbers, insufficient balance, zero and negative amounts, incorrect PINs, expired OTPs, network failures and duplicate transfer attempts.
+
+I also created a requirements traceability matrix so that the requirements can be linked directly to the tests.
+
+For defect management, I prepared a simulated bug report. Some important examples are duplicate transactions caused by repeated confirmation, unsafe transaction handling during network interruption, and acceptance of an expired OTP.
+
+For the simulated execution, 40 test cases were planned. 31 passed, 7 failed and 2 were blocked, giving a 77.5 percent pass rate.
+
+The defined exit criterion was 95 percent, so the simulated application was not recommended for production release.
+
+The next step would be for developers to fix the critical and high-severity defects, after which QA would perform retesting and regression testing.
+
+The main lesson from this project is that quality assurance is not only about proving that the normal path works. It is also about identifying failure conditions and making sure that financial transactions remain safe, accurate and traceable.
+
+Thank you.
