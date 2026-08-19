@@ -1,0 +1,76 @@
+{
+  "info": {
+    "name": "Bank Transfer QA - Simulated API Collection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Portfolio-only simulated endpoints; replace URLs with an authorized test environment."
+  },
+  "item": [
+    {
+      "name": "Validate Beneficiary",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"bankCode\": \"TEST\", \"accountNumber\": \"0000000002\"}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/beneficiaries/validate",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "beneficiaries",
+            "validate"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Create Transfer",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"sourceAccount\": \"0000000001\", \"beneficiaryAccount\": \"0000000002\", \"amount\": 10000, \"currency\": \"NGN\", \"reference\": \"QA-TEST-001\"}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/transfers",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "transfers"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Get Transaction",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/transfers/{{transactionId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "transfers",
+            "{{transactionId}}"
+          ]
+        }
+      }
+    }
+  ]
+}
